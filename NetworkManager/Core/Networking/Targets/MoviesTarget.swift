@@ -12,25 +12,22 @@ enum MoviesTarget {
     case fetchUpcoming(page: Int)
 }
 
-// MARK: Our Implementation
+// MARK: Moya Implementation
 extension MoviesTarget: TMDBTargetType {
-    var requestEndpoint: String {
+    var path: String {
         switch self {
         case .fetchUpcoming:
             return "/movie/upcoming"
         }
     }
     
-    var requestMethod: TMDBNetworkMethod {
+    var method: Moya.Method {
         switch self {
         case .fetchUpcoming:
             return .get
         }
     }
-}
-
-// MARK: Moya Implementation
-extension MoviesTarget {
+    
     var task: Task {
         switch self {
         case .fetchUpcoming(let page):

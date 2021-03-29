@@ -12,25 +12,22 @@ enum TVShowsTarget {
     case fetchPopular(page: Int)
 }
 
-// MARK: Our Implementation
+// MARK: Moya Implementation
 extension TVShowsTarget: TMDBTargetType {
-    var requestEndpoint: String {
+    var path: String {
         switch self {
         case .fetchPopular:
             return "/tv/popular"
         }
     }
     
-    var requestMethod: TMDBNetworkMethod {
+    var method: Moya.Method {
         switch self {
         case .fetchPopular:
             return .get
         }
     }
-}
-
-// MARK: Moya Implementation
-extension TVShowsTarget {
+    
     var task: Task {
         switch self {
         case .fetchPopular(let page):

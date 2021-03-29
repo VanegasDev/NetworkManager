@@ -9,6 +9,9 @@ import Foundation
 import Moya
 import Combine
 
+typealias NetworkResponse = (data: Data, httpResponse: URLResponse?)
+typealias DecodedResponse<T: Decodable> = (response: T, httpResponse: URLResponse?)
+
 protocol MoyaRequesterType {
     func request(_ target: TargetType) -> AnyPublisher<Moya.Response, Error>
 }

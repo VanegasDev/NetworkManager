@@ -15,7 +15,6 @@
 		C082464D26124DB8003ADD82 /* MoviesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C082464C26124DB8003ADD82 /* MoviesService.swift */; };
 		C082465026124E3D003ADD82 /* TVShowsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C082464F26124E3D003ADD82 /* TVShowsService.swift */; };
 		C0824656261252AF003ADD82 /* MoyaRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0824655261252AF003ADD82 /* MoyaRequester.swift */; };
-		C082465B261253C9003ADD82 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C082465A261253C9003ADD82 /* NetworkManager.swift */; };
 		C082465F2612547E003ADD82 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C082465E2612547E003ADD82 /* NetworkConfiguration.swift */; };
 		C082466526125864003ADD82 /* MoviesTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C082466426125864003ADD82 /* MoviesTarget.swift */; };
 		C082466826125981003ADD82 /* TVShowsTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C082466726125981003ADD82 /* TVShowsTarget.swift */; };
@@ -41,7 +40,6 @@
 		C082464C26124DB8003ADD82 /* MoviesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesService.swift; sourceTree = "<group>"; };
 		C082464F26124E3D003ADD82 /* TVShowsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowsService.swift; sourceTree = "<group>"; };
 		C0824655261252AF003ADD82 /* MoyaRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaRequester.swift; sourceTree = "<group>"; };
-		C082465A261253C9003ADD82 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		C082465E2612547E003ADD82 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		C082466426125864003ADD82 /* MoviesTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesTarget.swift; sourceTree = "<group>"; };
 		C082466726125981003ADD82 /* TVShowsTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowsTarget.swift; sourceTree = "<group>"; };
@@ -87,30 +85,14 @@
 			path = CustomViews;
 			sourceTree = "<group>";
 		};
-		C08246522612527A003ADD82 /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-				C082465426125288003ADD82 /* MoyaRequester */,
-			);
-			path = Managers;
-			sourceTree = "<group>";
-		};
 		C08246532612527F003ADD82 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
 				C08246622612568B003ADD82 /* Targets */,
 				C082465E2612547E003ADD82 /* NetworkConfiguration.swift */,
-				C082465A261253C9003ADD82 /* NetworkManager.swift */,
-			);
-			path = Networking;
-			sourceTree = "<group>";
-		};
-		C082465426125288003ADD82 /* MoyaRequester */ = {
-			isa = PBXGroup;
-			children = (
 				C0824655261252AF003ADD82 /* MoyaRequester.swift */,
 			);
-			path = MoyaRequester;
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		C08246622612568B003ADD82 /* Targets */ = {
@@ -182,7 +164,6 @@
 		C7F2BD072610466A00578746 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				C08246522612527A003ADD82 /* Managers */,
 				C08246532612527F003ADD82 /* Networking */,
 				C7F2BD0B2610469E00578746 /* Configuration */,
 				C7F2BD0A2610469A00578746 /* Models */,
@@ -325,7 +306,6 @@
 				C7F2BCF5261045E200578746 /* NetworkManagerApp.swift in Sources */,
 				C082464D26124DB8003ADD82 /* MoviesService.swift in Sources */,
 				C7F2BD122610470400578746 /* ItemView.swift in Sources */,
-				C082465B261253C9003ADD82 /* NetworkManager.swift in Sources */,
 				C082465F2612547E003ADD82 /* NetworkConfiguration.swift in Sources */,
 				C08246472612491A003ADD82 /* MovieListViewModel.swift in Sources */,
 				C082466E26125D6C003ADD82 /* TVShowListView.swift in Sources */,

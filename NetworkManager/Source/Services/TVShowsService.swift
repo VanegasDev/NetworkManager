@@ -13,9 +13,9 @@ protocol TVShowsServiceType {
 }
 
 struct TVShowsService: TVShowsServiceType {
-    private let apiRequester: NetworkManagerType
+    private let apiRequester: MoyaRequesterType
     
-    init(with apiRequester: NetworkManagerType = NetworkManager()) {
+    init(with apiRequester: MoyaRequesterType = MoyaRequester()) {
         self.apiRequester = apiRequester
     }
     
