@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Moya
 
 enum MoviesTarget {
     case fetchUpcoming(page: Int)
@@ -29,17 +28,12 @@ extension MoviesTarget: TMDBTargetType {
     }
 }
 
-// MARK: Moya Implementation
+// MARK: URLSession Implementation
 extension MoviesTarget {
-    var task: Task {
-        switch self {
-        case .fetchUpcoming(let page):
-            let params: [String: Any] = [
-                "api_key": Constants.apiKey,
-                "page": page
-            ]
-            
-            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
-        }
+    var queryParams: [String : String?] {
+        [
+            "api_key": Constants.apiKey,
+            "page": "1"
+        ]
     }
 }

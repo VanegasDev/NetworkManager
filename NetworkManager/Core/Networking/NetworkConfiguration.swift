@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import Moya
 
+// MARK: TMDB Target Protocols
 enum TMDBNetworkMethod: String {
     case post = "POST"
     case put = "PUT"
@@ -16,14 +16,14 @@ enum TMDBNetworkMethod: String {
     case patch = "PATCH"
 }
 
-protocol TMDBTargetType: TargetType {
+protocol TMDBTargetType: URLSessionTarget {
     var apiURL: URL { get }
     var requestEndpoint: String { get }
     var requestHeaders: [String: String]? { get }
     var requestMethod: TMDBNetworkMethod { get }
 }
 
-// MARK: Our Implementation
+// MARK: Our Target Implementation
 extension TMDBTargetType {
     var apiURL: URL {
         guard let url = URL(string: Constants.baseURL) else {
@@ -38,35 +38,8 @@ extension TMDBTargetType {
     }
 }
 
-// MARK: Moya Implementation
-extension TMDBTargetType {
-    var baseURL: URL {
-        apiURL
-    }
-    
-    var method: Moya.Method {
-        switch requestMethod {
-        case .delete: return .delete
-        case .post: return .post
-        case .get: return .get
-        case .patch: return .patch
-        case .put: return .put
-        }
-    }
-    
-    var headers: [String : String]? {
-        requestHeaders
-    }
-    
-    var path: String {
-        requestEndpoint
-    }
-    
-    var validationType: ValidationType {
-        .successCodes
-    }
-    
-    var sampleData: Data {
-        Data()
-    }
+
+// MARK: Protocol for handling URL Session Requests
+protocol URLSessionTarget {
+    var queryParams: [String: String?] { get }
 }

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Moya
 
 enum TVShowsTarget {
     case fetchPopular(page: Int)
@@ -29,17 +28,12 @@ extension TVShowsTarget: TMDBTargetType {
     }
 }
 
-// MARK: Moya Implementation
+// MARK: URLSession Implementation
 extension TVShowsTarget {
-    var task: Task {
-        switch self {
-        case .fetchPopular(let page):
-            let params: [String: Any] = [
-                "api_key": Constants.apiKey,
-                "page": page
-            ]
-            
-            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
-        }
+    var queryParams: [String : String?] {
+        [
+            "api_key": Constants.apiKey,
+            "page": "1"
+        ]
     }
 }

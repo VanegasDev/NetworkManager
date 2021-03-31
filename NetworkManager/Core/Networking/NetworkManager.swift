@@ -11,6 +11,7 @@ import Combine
 typealias NetworkResponse = (data: Data, httpResponse: HTTPURLResponse?)
 typealias DecodedResponse<T: Decodable> = (response: T, httpResponse: HTTPURLResponse?)
 
+// MARK: Our Network Manager, he only knows about our target
 protocol NetworkManagerType {
     func request(_ target: TMDBTargetType) -> AnyPublisher<NetworkResponse, Error>
 }
@@ -33,17 +34,51 @@ extension NetworkManagerType {
     }
 }
 
-// MARK: Moya Manager
-struct NetworkManager: NetworkManagerType {
-    private let moyaRequester: MoyaRequesterType
+// MARK: Custom Errors - Just for URLSession in this case
+enum NetworkError: LocalizedError {
+    case invalidURL(URL?)
+    case requestError(String)
     
-    init(with moyaRequester: MoyaRequesterType = MoyaRequester()) {
-        self.moyaRequester = moyaRequester
+    var errorDescription: String? {
+        switch self {
+        case .invalidURL(let url):
+            return "Unreachable URL: \(url?.absoluteString ?? "")"
+        case .requestError(let description):
+            return description
+        }
+    }
+}
+
+// MARK: Example Using URLSession
+struct NetworkManager: NetworkManagerType {
+    private let apiRequester: URLSession
+    
+    init(with apiRequester: URLSession = .shared) {
+        self.apiRequester = apiRequester
     }
     
     func request(_ target: TMDBTargetType) -> AnyPublisher<NetworkResponse, Error> {
-        moyaRequester.request(target)
-            .map { (data: $0.data, httpResponse: $0.response) }
+        let url = target.apiURL.appendingPathComponent(target.requestEndpoint)
+        let params = target.queryParams
+        var request: URLRequest
+        var myURL = URLComponents(string: url.absoluteString)
+        var items: [URLQueryItem] = []
+
+        for (key, value) in params {
+            items.append(URLQueryItem(name: key, value: value))
+        }
+
+        myURL?.queryItems = items
+        
+        guard let requestURL = myURL?.url else { return Fail(error: NetworkError.invalidURL(myURL?.url)).eraseToAnyPublisher() }
+        request = URLRequest(url: requestURL)
+        request.allHTTPHeaderFields = target.requestHeaders
+        request.httpMethod = target.requestMethod.rawValue
+        
+        return apiRequester.dataTaskPublisher(for: request)
+            .receive(on: DispatchQueue.main)
+            .map { (data: $0.data, httpResponse: $0.response as? HTTPURLResponse) }
+            .mapError { NetworkError.requestError($0.localizedDescription) }
             .eraseToAnyPublisher()
     }
 }
